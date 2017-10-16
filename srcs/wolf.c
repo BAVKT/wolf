@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 16:41:34 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/13 20:28:49 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/16 20:27:27 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ int		main(int ac, char **av)
 		error(1);
 	if (!ft_strcmp(av[1], "usage"))
 		error(0);
+	b.av = ft_strdup(av[1]);
+	check_file(av[1]);
 	init_base(&b);
-	checkfile(av[1]);
+	parse(&b);
 	loop(&b);
 	return (0);
 }

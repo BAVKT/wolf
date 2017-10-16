@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 19:20:16 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/13 20:28:58 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/16 19:05:32 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,49 +18,67 @@
 
 void		ev_updown(int k, t_base *b)
 {
+			ft_putendlcolor("ev_updown()", MAGENTA);
+	//bouchetrou
 	if (k == 126)
-	{
- 		if(worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false)
-		posX += dirX * moveSpeed;
- 		if(worldMap[int(posX)][int(posY + dirY * moveSpeed)] == false)
-		posY += dirY * moveSpeed;
-	}
-	else if (k == 125)
-	{
-		if(worldMap[int(posX - dirX * moveSpeed)][int(posY)] == false)
-		posX -= dirX * moveSpeed;
-		if(worldMap[int(posX)][int(posY - dirY * moveSpeed)] == false)
-		posY -= dirY * moveSpeed;
-	}
-	refresh(base);
+		b->r.x = b->r.x;
+
+	// if (k == 126)
+	// {
+	// 	if (!b->z[b->r.mapy * b->winx + (b->r.mapx + b->r.dirx * b->r.mv)])
+	// 		b->r.x += b->r.dirx * b->r.mv;
+	// 	if (!b->z[(b->r.mapy + b->r.diry * b->r.mv) * b->winx + b->r.mapx])
+	// 		b->r.y += b->r.diry * b->r.mv;
+	// }
+	// else if (k == 125)
+	// {
+	// 	if (!b->z[b->r.mapy * b->winx + (b->r.mapx - b->r.dirx * b->r.mv)])
+	// 		b->r.x -= b->r.dirx * b->r.mv;
+	// 	if (!b->z[(b->r.mapy - b->r.diry * b->r.mv) * b->winx + b->r.mapx])
+	// 		b->r.y -= b->r.diry * b->r.mv;
+	// }
+	refresh(b);
 }
 
 /*
 ** Event for moving left and right
 */
+
 void		ev_leftright(int k, t_base *b)
 {
+			ft_putendlcolor("ev_leftright()", MAGENTA);
 	if (k == 124)
 	{
 		//both camera direction and camera plane must be rotated
-		oldDirX = dirX;
-		dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-		dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-		oldPlaneX = planeX;
-		planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-		planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+		b->r.odirx = b->r.dirx;
+		b->r.dirx = b->r.dirx * cos(-b->r.rot) - b->r.diry * sin(-b->r.rot);
+		b->r.diry = b->r.odirx * sin(-b->r.rot) + b->r.diry * cos(-b->r.rot);
+		b->r.oplanex = b->r.planex;
+		b->r.planex = b->r.planex * cos(-b->r.rot) - b->r.planey * sin(-b->r.rot);
+		b->r.planey = b->r.oplanex * sin(-b->r.rot) + b->r.planey * cos(-b->r.rot);
 	}
 	else if (k == 123)
 	{
 		//both camera direction and camera plane must be rotated
-		oldDirX = dirX;
-		dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-		dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-		oldPlaneX = planeX;
-		planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-		planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+		b->r.odirx = b->r.dirx;
+		b->r.dirx = b->r.dirx * cos(b->r.rot) - b->r.diry * sin(b->r.rot);
+		b->r.diry = b->r.odirx * sin(b->r.rot) + b->r.diry * cos(b->r.rot);
+		b->r.oplanex = b->r.planex;
+		b->r.planex = b->r.planex * cos(b->r.rot) - b->r.planey * sin(b->r.rot);
+		b->r.planey = b->r.oplanex * sin(b->r.rot) + b->r.planey * cos(b->r.rot);
 	}
-	refresh(base);
+	refresh(b);
+}
+
+/*
+** For other events 
+*/
+
+void		ev_else(int k, t_base *b)
+{
+			ft_putendlcolor("ev_else()", MAGENTA);
+	if (k == 53)
+		clean(b);
 }
 
 /*
@@ -69,6 +87,9 @@ void		ev_leftright(int k, t_base *b)
 
 int		event(int k, void *param)
 {
+			ft_putendlcolor("event()", MAGENTA);
+			ft_putstr("k = ");
+			ft_putnbrendl(k);
 	t_base *b;
 
 	b = (t_base *)param;
@@ -81,70 +102,3 @@ int		event(int k, void *param)
 	refresh(b);
 	return (0);
 }
-
-
-//###########################################################
-// /*
-// ** Catch the mouse movments
-// */
-
-// int		evmv_mouse(int x, int y, t_base *base)
-// {
-// 	base->frfr.posx = x;
-// 	base->frfr.posy = y;
-// 	refresh(base);
-// 	return (0);
-// }
-
-// /*
-// ** Mouse events
-// */
-
-// int		ev_mouse(int k, int x, int y, void *param)
-// {
-// 	t_base *b;
-
-// 	b = (t_base *)param;
-// 	if (k == 1)
-// 	{
-
-// 	}
-// 	else if (k == 4)
-// 	{
-
-// 	}
-// 	else if (k == 5)
-// 	{
-
-// 	}
-// 	refresh(b);
-// 	return (0);
-// }
-
-// /*
-// ** Move events
-// */
-
-// void	ev_move(int k, t_base *b)
-// {
-// 	else if (k == 126)
-// 		base->frfr.my -= 0.33 / base->frfr.zoom;
-// 	else if (k == 125)
-// 		base->frfr.my += 0.33 / base->frfr.zoom;
-// 	else if (k == 124)
-// 		base->frfr.mx += 0.33 / base->frfr.zoom;
-// 	else if (k == 123)
-// 		base->frfr.mx -= 0.33 / base->frfr.zoom;
-// 	refresh(base);
-// }
-
-// /*
-// ** Other events : Quit, choose fractal, change color, reinit
-// */
-
-// void	ev_else(int k, t_base *b)
-// {
-// 	if (k == 53)
-// 		clean(b);
-// 	refresh(b);
-// }

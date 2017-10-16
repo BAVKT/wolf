@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 20:31:32 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/13 20:28:53 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/16 20:23:49 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,23 @@
 
 void	init_base(t_base *b)
 {
-	parse(b);
-	if (!(b->z = (int*)malloc(sizeof(int) * (b->maxx * b->maxy))));
+			ft_putendlcolor("init_base()", MAGENTA);
+	b->maxx = 0;
+	b->maxy = 0;
+	if (!(b->z = (int*)malloc(sizeof(int) * (b->maxx * b->maxy))))
 		error(8);
+	init_ray(&b->r);
+	b->size = b->maxx * b->maxy;
+	b->sizev = 5;
+	b->winx = WINX;
+	b->winy = WINY;
+	b->win_size = b->winx * b->winy;
 	b->mx.mlx = mlx_init();
 	b->mx.win = mlx_new_window(b->mx.mlx, WINX, WINY, "Wolf3D");
 	b->mx.img = mlx_new_image(b->mx.mlx, b->winx, b->winy);
 	b->mx.data = (int*)mlx_get_data_addr(
 		b->mx.img, &b->mx.bpp, &b->mx.sizeline, &b->mx.endian);
-	mlx_string_put(b->mx.mlx, b->mx.win, (b->winx / 2) - 100,
+	mlx_string_put(b->mx.mlx, b->mx.win, (b->winx / 2) - 75,
 		(b->winy / 2) - 20, W, "PLEASE WAIT...");
 	mlx_put_image_to_window(b->mx.mlx, b->mx.win, b->mx.img, 0, 0);
 }
@@ -35,52 +43,64 @@ void	init_base(t_base *b)
 ** Init the values for the loop
 */
 
-void	init_xy(t_base *b)
+void	init_val(t_base *b)
 {
+			// ft_putendlcolor("init_xy()", MAGENTA);
 				//calculate ray position and direction
-	b->ray.cameraX = 2 * x / double(w) - 1; //x-coordinate in camera space
-	b->ray.rayPosX = posX;
-	b->ray.rayPosY = posY;
-	b->ray.rayDirX = dirX + planeX * cameraX;
-	b->ray.rayDirY = dirY + planeY * cameraX;
-				//which box of the map we're in
-	b->ray.mapX = int(rayPosX);
-	b->ray.mapY = int(rayPosY);
-				//length of ray from one x or y-side to next x or y-side
-	b->ray.deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
-	b->ray.deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
-	b->ray.hit = 0;  //was there a wall hit?
+	b->r.camx = 2 * b->r.x / WINX - 1;
+	b->r.rayx = b->r.x;
+	b->r.rayy = b->r.y;
+	b->r.dirayx = b->r.dirx + b->r.planex * b->r.camx;
+	b->r.dirayy = b->r.diry + b->r.planey * b->r.camx;
+	b->r.mapx = (int)b->r.rayx;
+	b->r.mapy = (int)b->r.rayy;
+	b->r.deltax = ft_sqrt(1 + (b->r.dirayy * b->r.dirayy) / (b->r.dirayx * b->r.dirayx));
+	b->r.deltay = ft_sqrt(1 + (b->r.dirayx * b->r.dirayx) / (b->r.dirayy * b->r.dirayy));
+	b->r.hit = 0;
 }
 
 /*
 ** Init a part of the ray struct
 */
 
-void	init_ray(t_ray *ray)
+void	init_ray(t_ray *r)
 {
-	b->ray.posX = 22;
-	b->ray.posY = 12;    	//x and y start position
-	b->ray.dirX = -1;
-	b->ray.dirY = 0;     	//initial direction vector
-	b->ray.planeX = 0;
-	b->ray.planeY = 0.66;	//the 2d raycaster version of camera plane
-	b->ray.time = 0;     	//time of current frame
-	b->ray.oldTime = 0;  	//time of previous frame
+			ft_putendlcolor("init_ray()", MAGENTA);
+	r->oplanex = 0;
+	r->pwdist = 0;
+	r->odirx = 0;
+	r->frame = 0;
+	r->rot = 0;	
+	r->mv = 0;
+	r->x = 0;
+	r->y = 0;		//x and y start position
+	r->dirx = -1;
+	r->diry = 0;		//initial direction vector
+	r->planex = 0;
+	r->planey = 0.66;	//the 2d raycaster version of camera plane
+	r->ti = 0;		//ti of current frame
+	r->oti = 0;		//ti of previous frame
+	r->stepx = 0;
+	r->stepy = 0;
+	r->side = 0;
+	r->liney = 0;
+	r->start = 0;
+	r->end = 0;
 }
 
-/*
-** Init bresenham struct
-*/
+// /*
+// ** Init bresenham struct
+// */
 
-void	init_bresen(t_bresen *br)
-{
-	br->x = 0;
-	br->y = 0;
-	br->dx = 0;
-	br->dy = 0;
-	br->xi = 0;
-	br->yi = 0;
-	br->xj = 0;
-	br->yj = 0;
-	br->color = 0xffffff;
-}
+// void	init_bresen(t_bresen *br)
+// {
+// 	br->x = 0;
+// 	br->y = 0;
+// 	br->dx = 0;
+// 	br->dy = 0;
+// 	br->xi = 0;
+// 	br->yi = 0;
+// 	br->xj = 0;
+// 	br->yj = 0;
+// 	br->color = 0xffffff;
+// }

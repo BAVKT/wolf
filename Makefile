@@ -6,7 +6,7 @@
 #    By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/27 17:07:31 by vmercadi          #+#    #+#              #
-#    Updated: 2017/10/13 19:40:44 by vmercadi         ###   ########.fr        #
+#    Updated: 2017/10/16 18:55:09 by vmercadi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,17 +40,17 @@ all: $(NAME)
 
 $(NAME):$(SRCO)
 	@make -s -C $(MLX)
-	@echo '\033[36;4mMLX	compiled !\x1b[0m'
+	@echo "\033[32;4mMLX\x1b[0m	\033[32;7mcompiled\x1b[0m"
 	@make -s -C libft/
-	@echo '\033[36;4mLIBFT	compiled !\x1b[0m'
+	@echo "\033[32;4mLIBFT\x1b[0m	\033[32;7mcompiled\x1b[0m"
 	@gcc $(CFLAGS) $(LIB) -o $(NAME) $(SRC) $(MFLAGS) $(INCLUDES)
-	@echo '\033[36;4mWOLF3D	compiled !\x1b[0m'
-	@echo '\033[32;3m---------------------------------------'
-	@echo 'Everything compiled nicely and softly !'
-	@echo '---------------------------------------\x1b[0m'
+	@echo "\033[32;4mWOLF3D\x1b[0m	\033[32;7mcompiled\x1b[0m"
+	@echo "\033[32;3m-----------------------------------"
+	@echo "Things went great ! For this time.."
+	@echo "-----------------------------------\x1b[0m"
 
 it: all
-	@./wolf3d
+	@./wolf3d pam/01
 
 clean:
 	@rm -rf $(SRCO)
@@ -66,44 +66,4 @@ re: fclean all
 ultra: all clean
 
 reit: re clean
-	@./wolf3d
-
-
-# NAME = wolf3d
-# SRC = srcs/wolf.c
-# SDL = `sdl-config --cflags --libs`
-# INCLUDES = -I includes -I $(SDL) -I libft
-# CFLAGS = -Wall -Wextra -Werror $(INCLUDES)
-# MFLAGS = -framework OpenGL -framework AppKit $(SDL) -lpthread
-# SRCO = $(SRC:%.c=%.o)
-# LIB = libft/libft.a
-
-# .PHONY: all re cleans
-
-# all: $(NAME)
-
-# $(NAME):$(SRCO)
-# 	@make -s -C libft/
-# 	@gcc $(FLAGS) $(LIB) -o $(NAME) $(SRC) $(MFLAGS) $(INCLUDES)
-# 	@echo '---------------------------------------'
-# 	@echo 'Everything compiled nicely and softly !'
-# 	@echo '---------------------------------------'
-
-# it: all
-# 	@./wolf3d
-
-# clean:
-# 	@rm -rf $(SRCO)
-# 	@make clean -s -C libft/
-# 	@make clean -s -C $(SDL)/
-
-# fclean: clean
-# 	@rm -rf $(NAME)
-# 	@make fclean -s -C libft/
-
-# re: fclean all
-	
-# ultra: all clean
-
-# reit: re clean
-# 	@./wolf3d
+	@./wolf3d pam/01

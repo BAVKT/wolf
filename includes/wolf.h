@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 18:41:36 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/13 20:22:42 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/16 20:26:10 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define __WOLF_H
 # include "libft.h"
 # include "mlx.h"
+# include <math.h>
 # include <pthread.h>
 # include <limits.h>
 # define mapWidth 24
@@ -29,48 +30,53 @@
 
 typedef struct			s_ray
 {
-	double				cameraY;
-	double				cameraX;
-	double				rayPosX;
-	double				rayPosY;
-	double				rayDirX;
-	double				rayDirY;
-	double				posX;
-	double				posY;
-	double				dirX;
-	double				dirX;
-	double				time;
-	double				oldTime;
-	double				sideDistX; 	//length of ray from current position to next x or y-side
-	double				sideDistY;
-	double				deltaDistX;
-	double				deltaDistY;
-	double				perpWallDist;
-	double				oldDirX;
-	double				oldPlaneX;
-	int					mapX;
-	int					mapY;
-	int					stepX;     	//what direction to step in x or 
-	int					stepY;		//y-direction (either +1 or -1)
-	int					hit;       	//was there a wall hit?
-	int					side;      	//was a NS or a EW wall hit?
-	int					lineHeight;
-	int					drawStart;
-	int					drawEnd;
-}						t_ray;
-
-typedef	struct			s_bresenham
-{
+	double				oplanex;
+	double				dirayx;
+	double				dirayy;
+	double				planex;
+	double				planey;
+	double				deltax;
+	double				deltay;
+	double				pwdist;		//perp wall dist
+	double				sidex;		//length of ray from current position to next x or y-side
+	double				sidey;
+	double				odirx;
+	double				frame;
+	double				camy;
+	double				camx;
+	double				rayx;
+	double				rayy;
+	double				dirx;
+	double				diry;
+	double				oti;
+	double				rot;
+	double				ti;
+	double				mv;
 	double				x;
 	double				y;
-	double				dx;
-	double				dy;
-	double				xi;
-	double				yi;
-	double				xj;
-	double				yj;
+	int					hit;
+	int					end;
+	int					mapx;
+	int					mapy;
+	int					side;		//was a NS or a EW wall hit?
+	int					stepx;		//what direction to step in x or 
+	int					stepy;		//y-direction (either +1 or -1)
+	int					liney;
+	int					start;
 	unsigned int		color;
-}						t_bresen;
+}						t_ray;
+
+// typedef	struct			s_bresenham
+// {
+// 	double				x;
+// 	double				y;
+// 	double				dx;
+// 	double				dy;
+// 	double				xi;
+// 	double				yi;
+// 	double				xj;
+// 	double				yj;
+// }						t_bresen;
 
 typedef struct			s_mlx
 {
@@ -85,14 +91,16 @@ typedef struct			s_mlx
 
 typedef struct			s_base
 {
+	struct s_ray		r;
 	struct s_mlx		mx;
-	struct s_ray		ray;
 	char				*av;
-	int					*z;
+	int					*z;			//Tab values
 	int					winx;
 	int					winy;
 	int					maxx;
 	int					maxy;
+	int					size;		//size of the z tab
+	int					sizev;		//max size of the values
 	int					win_size;
 }						t_base;
 
@@ -108,6 +116,8 @@ void					refresh(t_base *b);
 */
 
 void					init_base(t_base *b);
+void					init_val(t_base *b);
+void					init_ray(t_ray *r);
 
 /*
 ** Draw line functions			|	bresenham.c
@@ -122,17 +132,30 @@ void					line2(t_base *b, int xx, int yy);
 */
 
 void					raycasting(t_base *b);
-void					hit(t_base *b);
 void					px_img(t_base *b, int x, int y);
 void					step(t_base *b);
+void					hit(t_base *b);
+void					fps(t_base *b);
+void					draw_verti(t_base *b, int x);
+
 
 /*
 ** Parsing the map				|	parsing.c
 */
+
 void					check_file(char *av);
 void					parse(t_base *b);
 void					get_xy(t_base *b, char *line);
 int						get_z(t_base *b, char *line, int j);
+
+/*
+** All the events				|	event.c
+*/
+
+int						event(int k, void *param);
+void					ev_updown(int k, t_base *b);
+void					ev_leftright(int k, t_base *b);
+void					ev_else(int k, t_base *b);
 
 
 /*
@@ -140,7 +163,7 @@ int						get_z(t_base *b, char *line, int j);
 */
 
 void					error(int e);
-void					get_color(t_ray *ray);
-
+int						get_color(int z);
+int						clean(t_base *b);
 
 #endif
