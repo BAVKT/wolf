@@ -6,7 +6,7 @@
 #    By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/27 17:07:31 by vmercadi          #+#    #+#              #
-#    Updated: 2017/10/16 18:55:09 by vmercadi         ###   ########.fr        #
+#    Updated: 2017/10/21 18:49:25 by vmercadi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,6 @@ $(NAME):$(SRCO)
 
 it: all
 	@./wolf3d pam/01
-
 clean:
 	@rm -rf $(SRCO)
 	@make clean -s -C libft/

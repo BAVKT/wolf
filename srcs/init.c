@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 20:31:32 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/16 20:23:49 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/21 18:49:28 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,76 +16,50 @@
 ** Init the base struct
 */
 
-void	init_base(t_base *b)
+void	init_base(t_val *v)
 {
 			ft_putendlcolor("init_base()", MAGENTA);
-	b->maxx = 0;
-	b->maxy = 0;
-	if (!(b->z = (int*)malloc(sizeof(int) * (b->maxx * b->maxy))))
-		error(8);
-	init_ray(&b->r);
-	b->size = b->maxx * b->maxy;
-	b->sizev = 5;
-	b->winx = WINX;
-	b->winy = WINY;
-	b->win_size = b->winx * b->winy;
-	b->mx.mlx = mlx_init();
-	b->mx.win = mlx_new_window(b->mx.mlx, WINX, WINY, "Wolf3D");
-	b->mx.img = mlx_new_image(b->mx.mlx, b->winx, b->winy);
-	b->mx.data = (int*)mlx_get_data_addr(
-		b->mx.img, &b->mx.bpp, &b->mx.sizeline, &b->mx.endian);
-	mlx_string_put(b->mx.mlx, b->mx.win, (b->winx / 2) - 75,
-		(b->winy / 2) - 20, W, "PLEASE WAIT...");
-	mlx_put_image_to_window(b->mx.mlx, b->mx.win, b->mx.img, 0, 0);
+	v->color = 0;
+	v->posX = 2;
+	v->posY = 2;
+	v->dirX = -1;
+	v->dirY = 0;
+	v->planeX = 0;
+	v->planeY = 0.66;
+	v->bpp = 0;
+	v->endian = 0;
+	v->sizeline = 0;
+	v->rot = 0.12; 
+	v->speed = 0.1;
+	v->longueurMur = 0;
+	v->murVertiOuHori = 0; 
+	v->etapeX = 0; 
+	v->etapeY = 0; 
+	v->distMurX = 0; 
+	v->distMurY = 0; 
+	v->mlx = mlx_init();
+	v->win = mlx_new_window(v->mlx, WINX, WINY, "Wolf3D");
+	v->img = mlx_new_image(v->mlx, WINX, WINY);
+	v->data = (int*)mlx_get_data_addr(v->img, &v->bpp, &v->sizeline, &v->endian);
 }
 
 /*
 ** Init the values for the loop
 */
 
-void	init_val(t_base *b)
+void    init_v(t_val *v)
 {
-			// ft_putendlcolor("init_xy()", MAGENTA);
-				//calculate ray position and direction
-	b->r.camx = 2 * b->r.x / WINX - 1;
-	b->r.rayx = b->r.x;
-	b->r.rayy = b->r.y;
-	b->r.dirayx = b->r.dirx + b->r.planex * b->r.camx;
-	b->r.dirayy = b->r.diry + b->r.planey * b->r.camx;
-	b->r.mapx = (int)b->r.rayx;
-	b->r.mapy = (int)b->r.rayy;
-	b->r.deltax = ft_sqrt(1 + (b->r.dirayy * b->r.dirayy) / (b->r.dirayx * b->r.dirayx));
-	b->r.deltay = ft_sqrt(1 + (b->r.dirayx * b->r.dirayx) / (b->r.dirayy * b->r.dirayy));
-	b->r.hit = 0;
-}
-
-/*
-** Init a part of the ray struct
-*/
-
-void	init_ray(t_ray *r)
-{
-			ft_putendlcolor("init_ray()", MAGENTA);
-	r->oplanex = 0;
-	r->pwdist = 0;
-	r->odirx = 0;
-	r->frame = 0;
-	r->rot = 0;	
-	r->mv = 0;
-	r->x = 0;
-	r->y = 0;		//x and y start position
-	r->dirx = -1;
-	r->diry = 0;		//initial direction vector
-	r->planex = 0;
-	r->planey = 0.66;	//the 2d raycaster version of camera plane
-	r->ti = 0;		//ti of current frame
-	r->oti = 0;		//ti of previous frame
-	r->stepx = 0;
-	r->stepy = 0;
-	r->side = 0;
-	r->liney = 0;
-	r->start = 0;
-	r->end = 0;
+        // ft_putendlcolor("init_v()", MAGENTA);
+      v->cameraX = 2 * v->x / (double)WINX - 1; 
+      v->rayPosX = v->posX;         
+      v->rayPosY = v->posY;                 
+      v->rayDirX = v->dirX + v->planeX * v->cameraX;
+      v->rayDirY = v->dirY + v->planeY * v->cameraX;
+      v->mapX = (int)v->rayPosX;
+      v->mapY = (int)v->rayPosY;
+      v->dist2MurX = sqrt(1 + (v->rayDirY * v->rayDirY) / (v->rayDirX * v->rayDirX)); 
+      v->dist2MurY = sqrt(1 + (v->rayDirX * v->rayDirX) / (v->rayDirY * v->rayDirY)); 
+      v->touche = 0; 
 }
 
 // /*

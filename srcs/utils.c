@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 16:41:50 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/16 20:01:49 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/21 18:49:29 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	error(int e)
 ** Free all the tabs needed
 */
 
-int		clean(t_base *b)
+int		clean(t_val *v)
 {
 			ft_putendlcolor("clean()", MAGENTA);
-	mlx_destroy_window(b->mx.mlx, b->mx.win);
-	mlx_destroy_image(b->mx.mlx, b->mx.img);
-	free(b->z);
-	ft_strdel(&b->av);
+	mlx_destroy_window(v->mlx, v->win);
+	mlx_destroy_image(v->mlx, v->img);
+	free(v->z);
+	ft_strdel(&v->av);
 	exit(0);
 	return (0);
 }
@@ -60,23 +60,31 @@ int		clean(t_base *b)
 ** Return the color dependind on the int of the block
 */
 
-int		get_color(int z)
+void	get_color(t_val *v)
 {
 			//ft_putendlcolor("get_color()", MAGENTA);
-	unsigned int color;
 
-	color = 0xffffff;
-	if (z == 0)
-		color = 0xffffff;
-	else if (z == 1)
-		color = R;
-	else if (z == 2)
-		color = G;
-	else if (z == 3)
-		color = B;
-	else if (z == 4)
-		color = W;
-	else if (z == 5)
-		color = Y;
-	return (color);
+		if(worldMap[v->mapX][v->mapY] == 0)
+			v->color = 0;
+		else if(worldMap[v->mapX][v->mapY] == 1)
+			v->color = 0xff0000;
+		else if(worldMap[v->mapX][v->mapY] == 2)
+			v->color = 0x00ff00;
+		else if(worldMap[v->mapX][v->mapY] == 3)
+			v->color = 0x0000ff;
+		else if(worldMap[v->mapX][v->mapY] == 4)
+			v->color = 0x000fff;
+		else if(worldMap[v->mapX][v->mapY] == 5)
+			v->color = 0x0ffff0;
+	// if (murVertiOuHori == 1)
+	// {
+	//     v->colorR /= 2;
+	//     v->colorB /= 2;
+	//     v->colorG /= 2;
+	// }
+	// v->color = 0;
+	// v->color = (v->color >> 24 | v->colorR);
+	// v->color = (v->color >> 16 | v->colorG);
+	// v->color = (v->color >> 8 | v->colorB);
+	// verLine(x, v->drawStart, v->drawEnd, v->color);
 }

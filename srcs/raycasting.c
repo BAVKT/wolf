@@ -6,141 +6,118 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 16:17:42 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/16 20:34:11 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/21 18:49:41 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 
 /*
-** Write the pixel in the image
+** Get the step
 */
 
-void	px_img(t_base *b, int x, int y)
+void	step(t_val *v)
 {
-			// ft_putendlcolor("px_img()", MAGENTA);
-	if (x > WINX || x < 0 || y > WINY || y < 0)
-		return ;
-	b->mx.data[y * b->winx + x] = b->r.color;
-}
-
-/*
-** FPS counter (BONUS BECAUSE NEED TIME FUNCTION)
-*/
-
-void	fps(t_base *b)
-{
-			// ft_putendlcolor("fps()", MAGENTA);
-	b->r.ti = 0;
-	b->r.oti = b->r.ti;
-	b->r.ti = time(NULL);
-	b->r.frame = (b->r.ti - b->r.oti) / 1000.0; //frame is the ti this frame has taken, in seconds
-	//speed modifiers
-	b->r.mv = b->r.frame * 5.0; //the constant value is in squares/second
-	b->r.rot = b->r.frame * 3.0; //the constant value is in radians/second
-	//  manque la ligne pour afficher le compteur
-}
-
-/*
-** Check while we dont hit a wall
-*/
-
-void	hit(t_base *b)
-{
-			//ft_putendlcolor("hit()", MAGENTA);
-	while (b->r.hit == 0) //perform DDA Digital differential analyzer
-	{
-			//jump to next map square, OR in x-direction, OR in y-direction
-		if (b->r.sidex < b->r.sidey)
+		if (v->rayDirX < 0)
 		{
-			b->r.sidex += b->r.deltax;
-			b->r.mapx += b->r.stepx;
-			b->r.side = 0;
+			v->etapeX = -1;
+			v->distMurX = (v->rayPosX - v->mapX) * v->dist2MurX;
 		}
 		else
 		{
-			b->r.sidey += b->r.deltay;
-			b->r.mapy += b->r.stepy;
-			b->r.side = 1;
+			v->etapeX = 1;
+			v->distMurX = (v->mapX + 1.0 - v->rayPosX) * v->dist2MurX;
 		}
-		if (b->z[b->r.mapy * b->r.mapx + b->r.mapx] > 0) //Check if ray has hit a wall
-			b->r.hit = 1;
-	}
-}
-
-/*
-** Get the step and side distance
-*/
-
-void	step(t_base *b)
-{
-			//ft_putendlcolor("step()", MAGENTA);
-	if (b->r.dirayx < 0)
-	{
-		b->r.stepx = -1;
-		b->r.sidex = (b->r.rayx - b->r.mapx) * b->r.deltax;
-	}
-	else
-	{
-		b->r.stepx = 1;
-		b->r.sidex = (b->r.mapx + 1.0 - b->r.rayx) * b->r.deltax;
-	}
-	if (b->r.dirayy < 0)
-	{
-		b->r.stepy = -1;
-		b->r.sidey = (b->r.rayy - b->r.mapy) * b->r.deltay;
-	}
-	else
-	{
-		b->r.stepy = 1;
-		b->r.sidey = (b->r.mapy + 1.0 - b->r.rayy) * b->r.deltay;
-	}
-}
-
-/*
-** Raycasting : draw colored lines
-*/
-
-void	raycasting(t_base *b)
-{
-			 ft_putendlcolor("raycasting()", MAGENTA);
-	b->r.x = -1;
-	while(++b->r.x < WINX)
-	{
-		init_val(b);
-		step(b);
-		hit(b);
-		//Calculate distance projected on camera direction (oblique distance will give fisheye effect!)
-		if (b->r.side == 0)
-			b->r.pwdist = (b->r.mapx - b->r.rayx + (1 - b->r.stepx) / 2) / b->r.dirayx;
+		if (v->rayDirY < 0)
+		{
+			v->etapeY = -1;
+			v->distMurY = (v->rayPosY - v->mapY) * v->dist2MurY;
+		}
 		else
-			b->r.pwdist = (b->r.mapy - b->r.rayy + (1 - b->r.stepy) / 2) / b->r.dirayy;
-		b->r.liney = (int)(WINY / b->r.pwdist);//Calculate height of line to draw on screen
-		b->r.color = get_color(b->z[b->r.mapy * b->r.mapx + b->r.mapx]);
-		b->r.color = (b->r.side == 1) ? b->r.color / 2 : b->r.color;//give x and y sides different brightness
-		draw_verti(b, b->r.x);//draw the pixels of the stripe as a vertical line
-	}
-	fps(b);
+		{
+			v->etapeY = 1;
+			v->distMurY = (v->mapY + 1.0 - v->rayPosY) * v->dist2MurY;
+		}
 }
 
 /*
-** Draw a vertical line between start and end
+** Loop until it hit a wall
 */
 
-void	draw_verti(t_base *b, int x)
+void	hit(t_val *v)
 {
-			// ft_putendlcolor("draw_verti()", MAGENTA);
-	b->r.start = -b->r.liney / 2 + WINY / 2;//calculate lowest and highest pixel to fill in current stripe
-	if(b->r.start < 0)
-		b->r.start = 0;
-	b->r.end = b->r.liney / 2 + WINY / 2;
-	if(b->r.end >= WINY)
-		b->r.end = WINY - 1;
-	while (b->r.start < b->r.end)
-		px_img(b, x, b->r.start++);
+	while (v->touche == 0)
+	{
+		if (v->distMurX < v->distMurY)
+		{
+			v->distMurX += v->dist2MurX;
+			v->mapX += v->etapeX;
+			v->murVertiOuHori = 0;
+		}
+		else
+		{
+			v->distMurY += v->dist2MurY;
+			v->mapY += v->etapeY;
+			v->murVertiOuHori = 1; 
+		}
+		if (worldMap[v->mapX][v->mapY] > 0)
+			v->touche = 1;
+	}
 }
 
+/*
+** Get wall size for drawing it
+*/
 
+void	wall(t_val *v)
+{
+	if (v->murVertiOuHori == 0)
+		v->longueurMur = fabs((v->mapX - v->rayPosX + (1 - v->etapeX) / 2) / v->rayDirX);
+	else
+		v->longueurMur = fabs((v->mapY - v->rayPosY + (1 - v->etapeY) / 2) / v->rayDirY);
+	v->hauteurMur = fabs(WINY / v->longueurMur);
+	v->drawStart = -v->hauteurMur / 2 + WINY / 2;
+	if (v->drawStart < 0)
+		v->drawStart = 0;
+	v->drawEnd = v->hauteurMur / 2 + WINY / 2;
+	if (v->drawEnd >= WINY)
+		v->drawEnd = WINY - 1;
+}
 
+/*
+** Main drawing loop
+*/
 
+void	raycasting(t_val *v)
+{
+      ft_putendlcolor("raycasting()", MAGENTA);
 
+	v->x = -1;
+	while (++v->x < WINX)
+	{
+		init_v(v);
+		step(v);
+		hit(v);
+		wall(v);
+		get_color(v);
+		draw_verti(v);
+    }
+}
+
+/*
+** Draw into the image
+*/
+
+void	draw_verti(t_val *v)
+{
+	int j;
+
+	j = v->drawStart;
+	while (j < v->drawEnd)
+	{
+		if (v->x > WINX || v->x < 0 || j > WINY || j < 0)
+			;
+		else
+			v->data[(int)(j++ * WINX + v->x)] = v->color;
+	}
+}

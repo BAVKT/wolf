@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 18:41:10 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/16 19:56:05 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/21 18:49:29 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	check_file(char *av)
 ** Parse the file
 */
 
-void	parse(t_base *b)
+void	parse(t_val *v)
 {
 			ft_putendlcolor("parse()", MAGENTA);
 	char	*str;
@@ -54,22 +54,22 @@ void	parse(t_base *b)
 	int		ok;
 
 	str = NULL;
-	fd = open(b->av, O_RDONLY);
+	fd = open(v->av, O_RDONLY);
 	while ((ok = get_next_line(fd, &str)) > 0)
 	{
-		get_xy(b, str);
+		get_xy(v, str);
 		free(str);
 	}
 	if (ok == -1)
 		error(5);
 	close(fd);
-	if (!(b->z = (int *)malloc(sizeof(int) * b->maxx * b->maxy)))
+	if (!(v->z = (int *)malloc(sizeof(int) * v->maxx * v->maxy)))
 		error(6);
 	j = 0;
-	fd = open(b->av, O_RDONLY);
+	fd = open(v->av, O_RDONLY);
 	while (get_next_line(fd, &str) > 0)
 	{
-		j = get_z(b, str, j);
+		j = get_z(v, str, j);
 		free(str);
 	}
 	close(fd);
@@ -79,7 +79,7 @@ void	parse(t_base *b)
 ** Get the max x & max y values
 */
 
-void	get_xy(t_base *b, char *line)
+void	get_xy(t_val *v, char *line)
 {
 			// ft_putendlcolor("get_xy()", MAGENTA);
 	int i;
@@ -101,19 +101,19 @@ void	get_xy(t_base *b, char *line)
 	{
 		if (ft_isdigit(line[i++]))
 		{
-			b->maxy++;
+			v->maxy++;
 			break ;
 		}
 	}
-	b->maxx = (j > b->maxx) ? j : b->maxx;
-	// (j != b->maxx && b->maxx > 0 && j != 0) ? i = 0 : error(6);
+	v->maxx = (j > v->maxx) ? j : v->maxx;
+	// (j != v->maxx && v->maxx > 0 && j != 0) ? i = 0 : error(6);
 }
 
 /*
 ** Fill the z tab
 */
 
-int		get_z(t_base *b, char *line, int j)
+int		get_z(t_val *v, char *line, int j)
 {
 			// ft_putendlcolor("get_z()", MAGENTA);
 	int		i;
@@ -125,12 +125,12 @@ int		get_z(t_base *b, char *line, int j)
 	c = ft_strsplit(line, ' ');
 	while (c[i])
 	{
-		b->z[j] = ft_atoi(c[i++]);
-		b->z[j] = (b->z[j] > b->sizev) ? 0 : b->z[j];
+		v->z[j] = ft_atoi(c[i++]);
+		v->z[j] = (v->z[j] > v->sizev) ? 0 : v->z[j];
 		j++;
 	}
 	free_tab((void **)c);
-	b->size = j;
+	v->size = j;
 	return (j);
 }
 

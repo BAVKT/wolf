@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 16:41:34 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/16 20:27:27 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/21 18:49:26 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,44 @@
 ** Main loop
 */
 
-void	loop(t_base *b)
+void    loop(t_val *v)
 {
-	refresh(b);
-	mlx_hook(b->mx.win, 2, 0, event, b);
-	// mlx_hook(b->mx.win, 6, 0, evmv_mouse, b);
-	mlx_hook(b->mx.win, 17, 0, clean, b);
-	// mlx_mouse_hook(b->mx.win, ev_mouse, b);
-	mlx_loop(b->mx.mlx);
+      ft_putendlcolor("loop()", MAGENTA);
+    refresh(v);
+    mlx_hook(v->win, 2, 0, event, v);
+    mlx_hook(v->win, 17, 0, clean, v);
+    mlx_loop(v->mlx);
 }
 
 /*
 ** Clear the current image, draw the new one and display it
 */
 
-void	refresh(t_base *b)
+void  refresh(t_val *v)
 {
-	ft_bzero(b->mx.data, b->win_size);
-	raycasting(b);
-	mlx_put_image_to_window(b->mx.mlx, b->mx.win, b->mx.img, 0, 0);
+       ft_putendlcolor("refresh()", MAGENTA);
+	int i;
+
+	i = 0;
+	while (i < WINX * WINY - 1)
+		v->data[i++] = 0;
+	raycasting(v);
+	mlx_put_image_to_window(v->mlx, v->win, v->img, 0, 0);
 }
 
 int		main(int ac, char **av)
 {
-	t_base b;
+	t_val v;
 
 	if (ac != 2)
 		error(1);
 	if (!ft_strcmp(av[1], "usage"))
 		error(0);
-	b.av = ft_strdup(av[1]);
+	v.av = ft_strdup(av[1]);
 	check_file(av[1]);
-	init_base(&b);
-	parse(&b);
-	loop(&b);
+	init_base(&v);
+	parse(&v);
+	loop(&v);
 	return (0);
 }
 
