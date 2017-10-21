@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 18:41:10 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/21 18:49:29 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/21 19:15:02 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void	get_xy(t_val *v, char *line)
 		}
 	}
 	v->maxx = (j > v->maxx) ? j : v->maxx;
-	// (j != v->maxx && v->maxx > 0 && j != 0) ? i = 0 : error(6);
 }
 
 /*
@@ -133,7 +132,3 @@ int		get_z(t_val *v, char *line, int j)
 	v->size = j;
 	return (j);
 }
-
-
-
-

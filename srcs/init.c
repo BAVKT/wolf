@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 20:31:32 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/21 18:49:28 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/21 19:08:48 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	init_base(t_val *v)
 {
-			ft_putendlcolor("init_base()", MAGENTA);
+			// ft_putendlcolor("init_base()", MAGENTA);
 	v->color = 0;
 	v->posX = 2;
 	v->posY = 2;
@@ -47,34 +47,17 @@ void	init_base(t_val *v)
 ** Init the values for the loop
 */
 
-void    init_v(t_val *v)
+void	init_v(t_val *v)
 {
         // ft_putendlcolor("init_v()", MAGENTA);
-      v->cameraX = 2 * v->x / (double)WINX - 1; 
-      v->rayPosX = v->posX;         
-      v->rayPosY = v->posY;                 
-      v->rayDirX = v->dirX + v->planeX * v->cameraX;
-      v->rayDirY = v->dirY + v->planeY * v->cameraX;
-      v->mapX = (int)v->rayPosX;
-      v->mapY = (int)v->rayPosY;
-      v->dist2MurX = sqrt(1 + (v->rayDirY * v->rayDirY) / (v->rayDirX * v->rayDirX)); 
-      v->dist2MurY = sqrt(1 + (v->rayDirX * v->rayDirX) / (v->rayDirY * v->rayDirY)); 
-      v->touche = 0; 
+	v->cameraX = 2 * v->x / (double)WINX - 1;
+	v->rayPosX = v->posX;
+	v->rayPosY = v->posY;
+	v->rayDirX = v->dirX + v->planeX * v->cameraX;
+	v->rayDirY = v->dirY + v->planeY * v->cameraX;
+	v->mapX = (int)v->rayPosX;
+	v->mapY = (int)v->rayPosY;
+	v->dist2MurX = sqrt(1 + (v->rayDirY * v->rayDirY) / (v->rayDirX * v->rayDirX));
+	v->dist2MurY = sqrt(1 + (v->rayDirX * v->rayDirX) / (v->rayDirY * v->rayDirY));
+	v->touche = 0; 
 }
-
-// /*
-// ** Init bresenham struct
-// */
-
-// void	init_bresen(t_bresen *br)
-// {
-// 	br->x = 0;
-// 	br->y = 0;
-// 	br->dx = 0;
-// 	br->dy = 0;
-// 	br->xi = 0;
-// 	br->yi = 0;
-// 	br->xj = 0;
-// 	br->yj = 0;
-// 	br->color = 0xffffff;
-// }

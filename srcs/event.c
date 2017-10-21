@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 19:20:16 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/21 18:49:43 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/21 19:23:59 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,16 @@ void	leftright(int k, t_val *v)
 	refresh(v);
 }
 
-// /*
-// ** For other events 
-// */
+/*
+** For other events 
+*/
 
-// void	ev_else(int k, t_base *b)
-// {
-// 			ft_putendlcolor("ev_else()", MAGENTA);
-// 	if (k == 53)
-// 		clean(b);
-// }
+void	ev_else(int k, t_val *v)
+{
+			ft_putendlcolor("ev_else()", MAGENTA);
+	if (k == 53)
+		clean(v);
+}
 
 /*
 ** Redirect the events and show/hide menus
