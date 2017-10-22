@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 19:20:16 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/21 19:23:59 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/22 16:36:32 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ void	updown(int k, t_val *v)
 		ft_putendlcolor("updown()", MAGENTA);
 	if (k == 126)
 	{
-		if(!worldMap[(int)(v->posX + v->dirX * v->speed)][(int)(v->posY)])
+		if(!v->z[(int)(v->posX + v->dirX * v->speed)][(int)(v->posY)])
 			v->posX += v->dirX * v->speed;
-		if(!worldMap[(int)(v->posX)][(int)(v->posY + v->dirY * v->speed)])
+		if(!v->z[(int)(v->posX)][(int)(v->posY + v->dirY * v->speed)])
 			v->posY += v->dirY * v->speed;
 	}
 	else if (k == 125)
 	{
-		if(!worldMap[(int)(v->posX - v->dirX * v->speed)][(int)(v->posY)])
+		if(!v->z[(int)(v->posX - v->dirX * v->speed)][(int)(v->posY)])
 			v->posX -= v->dirX * v->speed;
-		if(!worldMap[(int)(v->posX)][(int)(v->posY - v->dirY * v->speed)])
+		if(!v->z[(int)(v->posX)][(int)(v->posY - v->dirY * v->speed)])
 			v->posY -= v->dirY * v->speed;
 	}
 	refresh(v);

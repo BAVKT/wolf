@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 16:41:50 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/21 19:23:24 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/22 17:57:18 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	error(int e)
 		ft_putendl_fd("Somes map values are too high or under 0.", 2);
 	else if (e == 8)
 		ft_putendl_fd("Malloc failed", 2);
+	else if (e == 9)
+		ft_putendl_fd("Need walls on the map borders.", 2);
 	exit(1);
 }
 
@@ -64,17 +66,17 @@ void	get_color(t_val *v)
 {
 			//ft_putendlcolor("get_color()", MAGENTA);
 
-		if(worldMap[v->mapX][v->mapY] == 0)
+		if(v->z[v->mapX][v->mapY] == 0)
 			v->color = 0;
-		else if(worldMap[v->mapX][v->mapY] == 1)
+		else if(v->z[v->mapX][v->mapY] == 1)
 			v->color = 0xff0000;
-		else if(worldMap[v->mapX][v->mapY] == 2)
+		else if(v->z[v->mapX][v->mapY] == 2)
 			v->color = 0x00ff00;
-		else if(worldMap[v->mapX][v->mapY] == 3)
+		else if(v->z[v->mapX][v->mapY] == 3)
 			v->color = 0x0000ff;
-		else if(worldMap[v->mapX][v->mapY] == 4)
+		else if(v->z[v->mapX][v->mapY] == 4)
 			v->color = 0x000fff;
-		else if(worldMap[v->mapX][v->mapY] == 5)
+		else if(v->z[v->mapX][v->mapY] == 5)
 			v->color = 0x0ffff0;
 	// if (murVertiOuHori == 1)
 	// {

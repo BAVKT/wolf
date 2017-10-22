@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 16:17:42 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/21 19:24:28 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/22 17:56:02 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,27 @@
 
 void	step(t_val *v)
 {
-		if (v->rayDirX < 0)
-		{
-			v->etapeX = -1;
-			v->distMurX = (v->rayPosX - v->mapX) * v->dist2MurX;
-		}
-		else
-		{
-			v->etapeX = 1;
-			v->distMurX = (v->mapX + 1.0 - v->rayPosX) * v->dist2MurX;
-		}
-		if (v->rayDirY < 0)
-		{
-			v->etapeY = -1;
-			v->distMurY = (v->rayPosY - v->mapY) * v->dist2MurY;
-		}
-		else
-		{
-			v->etapeY = 1;
-			v->distMurY = (v->mapY + 1.0 - v->rayPosY) * v->dist2MurY;
-		}
+    		  ft_putendlcolor("step()", MAGENTA);
+	if (v->rayDirX < 0)
+	{
+		v->etapeX = -1;
+		v->distMurX = (v->rayPosX - v->mapX) * v->dist2MurX;
+	}
+	else
+	{
+		v->etapeX = 1;
+		v->distMurX = (v->mapX + 1.0 - v->rayPosX) * v->dist2MurX;
+	}
+	if (v->rayDirY < 0)
+	{
+		v->etapeY = -1;
+		v->distMurY = (v->rayPosY - v->mapY) * v->dist2MurY;
+	}
+	else
+	{
+		v->etapeY = 1;
+		v->distMurY = (v->mapY + 1.0 - v->rayPosY) * v->dist2MurY;
+	}
 }
 
 /*
@@ -46,6 +47,7 @@ void	step(t_val *v)
 
 void	hit(t_val *v)
 {
+      ft_putendlcolor("hit()", MAGENTA);
 	while (v->touche == 0)
 	{
 		if (v->distMurX < v->distMurY)
@@ -60,7 +62,9 @@ void	hit(t_val *v)
 			v->mapY += v->etapeY;
 			v->murVertiOuHori = 1; 
 		}
-		if (worldMap[v->mapX][v->mapY] > 0)
+		if (v->mapX < 0 || v->mapY < 0)
+			error(9); 
+		if (v->z[v->mapX][v->mapY] > 0)
 			v->touche = 1;
 	}
 }
@@ -71,6 +75,7 @@ void	hit(t_val *v)
 
 void	wall(t_val *v)
 {
+      	// ft_putendlcolor("wall()", MAGENTA);
 	if (v->murVertiOuHori == 0)
 		v->longueurMur = fabs((v->mapX - v->rayPosX + (1 - v->etapeX) / 2) / v->rayDirX);
 	else

@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 18:41:10 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/21 19:15:02 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/22 17:54:26 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	parse(t_val *v)
 	if (ok == -1)
 		error(5);
 	close(fd);
-	if (!(v->z = (int *)malloc(sizeof(int) * v->maxx * v->maxy)))
-		error(6);
+	if (!(v->z = (int **)malloc(sizeof(int *) * v->maxy)))
+		error(8);
 	j = 0;
 	fd = open(v->av, O_RDONLY);
 	while (get_next_line(fd, &str) > 0)
@@ -117,18 +117,22 @@ int		get_z(t_val *v, char *line, int j)
 			// ft_putendlcolor("get_z()", MAGENTA);
 	int		i;
 	int		k;
+	int		l;
 	char	**c;
 
 	i = 0;
 	k = 0;
+	l = 0;
+	v->z[j] = (int *)malloc(sizeof(int) * v->maxx);
 	c = ft_strsplit(line, ' ');
 	while (c[i])
 	{
-		v->z[j] = ft_atoi(c[i++]);
-		v->z[j] = (v->z[j] > v->sizev) ? 0 : v->z[j];
-		j++;
+		v->z[j][l++] = ft_atoi(c[i++]);
+			ft_putnbr(v->z[j][l - 1]);
+			ft_putchar(' ');
 	}
+			ft_putchar('\n');
+	j++;
 	free_tab((void **)c);
-	v->size = j;
 	return (j);
 }
