@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 18:41:36 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/22 17:39:06 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/22 21:26:14 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@ typedef struct			s_val
 	double				hauteurMur;
 	double				longueurMur;
 	unsigned int		color;
+	unsigned char		r;
+	unsigned char		g;
+	unsigned char		b;
 }					    t_val;
 
 /*
@@ -120,6 +123,7 @@ int		event(int k, void *param);
 void	updown(int k, t_val *v);
 void	leftright(int k, t_val *v);
 void	ev_else(int k, t_val *v);
+void	rotate(int k, t_val *v);
 
 /*
 ** Utilitaries					|	utils.c

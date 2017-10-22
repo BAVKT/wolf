@@ -6,12 +6,12 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 16:41:50 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/22 17:57:18 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/22 21:26:55 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
-
+	#include <stdio.h>
 /*
 ** All the error messages
 */
@@ -65,28 +65,29 @@ int		clean(t_val *v)
 void	get_color(t_val *v)
 {
 			//ft_putendlcolor("get_color()", MAGENTA);
-
-		if(v->z[v->mapX][v->mapY] == 0)
-			v->color = 0;
-		else if(v->z[v->mapX][v->mapY] == 1)
-			v->color = 0xff0000;
-		else if(v->z[v->mapX][v->mapY] == 2)
-			v->color = 0x00ff00;
-		else if(v->z[v->mapX][v->mapY] == 3)
-			v->color = 0x0000ff;
-		else if(v->z[v->mapX][v->mapY] == 4)
-			v->color = 0x000fff;
-		else if(v->z[v->mapX][v->mapY] == 5)
-			v->color = 0x0ffff0;
-	// if (murVertiOuHori == 1)
-	// {
-	//     v->colorR /= 2;
-	//     v->colorB /= 2;
-	//     v->colorG /= 2;
-	// }
-	// v->color = 0;
-	// v->color = (v->color >> 24 | v->colorR);
-	// v->color = (v->color >> 16 | v->colorG);
-	// v->color = (v->color >> 8 | v->colorB);
-	// verLine(x, v->drawStart, v->drawEnd, v->color);
+	if(v->z[v->mapX][v->mapY] == 0)
+		v->color = 0;
+	else if(v->z[v->mapX][v->mapY] == 1)
+		v->color = 0xff0000;
+	else if(v->z[v->mapX][v->mapY] == 2)
+		v->color = 0x00ff00;
+	else if(v->z[v->mapX][v->mapY] == 3)
+		v->color = 0x0000ff;
+	else if(v->z[v->mapX][v->mapY] == 4)
+		v->color = 0x000fff;
+	else if(v->z[v->mapX][v->mapY] == 5)
+		v->color = 0x0ffff0;
+	v->r = (v->color >> 16) & 0xff;
+	v->g = (v->color >> 8) & 0xff;
+	v->b = (v->color) & 0xff;
+	if (v->murVertiOuHori == 1)
+	{
+		v->b /= 2;
+		v->g /= 2;
+		v->r /= 2;
+	}
+	v->color = 0;
+	v->color = v->color | (v->r << 16);
+	v->color = v->color | (v->g << 8);
+	v->color = v->color | v->b;
 }
