@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 16:17:42 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/22 20:14:37 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/23 18:12:27 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,14 @@ void	hit(t_val *v)
 			v->distMurX += v->dist2MurX;
 			v->mapX += v->etapeX;
 			v->murVertiOuHori = 0;
+			v->angle = (v->etapeX == 1) ? 1 : 2;
 		}
 		else
 		{
 			v->distMurY += v->dist2MurY;
 			v->mapY += v->etapeY;
-			v->murVertiOuHori = 1; 
+			v->murVertiOuHori = 1;
+			v->angle = (v->etapeY == 1) ? 3 : 4;
 		}
 		if (v->mapX < 0 || v->mapY < 0)
 			error(9); 
@@ -96,7 +98,6 @@ void	wall(t_val *v)
 void	raycasting(t_val *v)
 {
       // ft_putendlcolor("raycasting()", MAGENTA);
-
 	v->x = -1;
 	while (++v->x < WINX)
 	{
@@ -124,5 +125,20 @@ void	draw_verti(t_val *v)
 			;
 		else
 			v->data[(int)(j++ * WINX + v->x)] = v->color;
+	}
+	while (j < WINY)
+	{
+		if (v->x > WINX || v->x < 0 || j > WINY || j < 0)
+			;
+		else
+			v->data[(int)(j++ * WINX + v->x)] = 0xefefef;
+	}
+	j = 0;
+	while (j < v->drawStart)
+	{
+		if (666 * rand() % 9999 == 0)
+			v->data[(int)(j++ * WINX + v->x)] = 0xffffff;
+		else
+			v->data[(int)(j++ * WINX + v->x)] = 0xccffff;
 	}
 }

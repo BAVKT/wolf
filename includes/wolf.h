@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 18:41:36 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/22 21:26:14 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/23 16:21:13 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <math.h>
 # include <pthread.h>
 # include <limits.h>
-# define mapWidth 24
-# define mapHeight 24
 # define R 0xff0000
 # define G 0x0000ff
 # define B 0x00ff00
@@ -58,6 +56,7 @@ typedef struct			s_val
 	double				posY;
 	double				dirX;
 	double				dirY;
+	double 				angle;
 	double				speed;
 	double				planeX;
 	double				planeY;

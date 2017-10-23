@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 16:41:50 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/22 21:26:55 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/23 18:12:19 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,32 +62,62 @@ int		clean(t_val *v)
 ** Return the color dependind on the int of the block
 */
 
+void	get_color2(t_val *v)
+{
+			//ft_putendlcolor("get_color()", MAGENTA);
+	if(v->z[v->mapX][v->mapY] == 3)
+	{
+		if(v->angle == 1)
+			v->color = 0x33ccff;
+		else if(v->angle == 2)
+			v->color = 0x0099ff;
+		else if(v->angle == 3)
+			v->color = 0x0066ff;
+		else if(v->angle == 4)
+			v->color = 0x0000ff;
+	}
+	else
+	{
+		if(v->angle == 1)
+			v->color = 0xffff99;
+		else if(v->angle == 2)
+			v->color = 0xffff66;
+		else if(v->angle == 3)
+			v->color = 0xffcc66;
+		else if(v->angle == 4)
+			v->color = 0xffcc00;
+	}
+}
+
+/*
+** Moar colors
+*/
+
 void	get_color(t_val *v)
 {
 			//ft_putendlcolor("get_color()", MAGENTA);
-	if(v->z[v->mapX][v->mapY] == 0)
-		v->color = 0;
-	else if(v->z[v->mapX][v->mapY] == 1)
-		v->color = 0xff0000;
-	else if(v->z[v->mapX][v->mapY] == 2)
-		v->color = 0x00ff00;
-	else if(v->z[v->mapX][v->mapY] == 3)
-		v->color = 0x0000ff;
-	else if(v->z[v->mapX][v->mapY] == 4)
-		v->color = 0x000fff;
-	else if(v->z[v->mapX][v->mapY] == 5)
-		v->color = 0x0ffff0;
-	v->r = (v->color >> 16) & 0xff;
-	v->g = (v->color >> 8) & 0xff;
-	v->b = (v->color) & 0xff;
-	if (v->murVertiOuHori == 1)
+	if(v->z[v->mapX][v->mapY] == 1)
 	{
-		v->b /= 2;
-		v->g /= 2;
-		v->r /= 2;
+		if(v->angle == 1)
+			v->color = 0xccff99;
+		else if(v->angle == 2)
+			v->color = 0xccff66;
+		else if(v->angle == 3)
+			v->color = 0x99ff33;
+		else if(v->angle == 4)
+			v->color = 0x99ff66;
 	}
-	v->color = 0;
-	v->color = v->color | (v->r << 16);
-	v->color = v->color | (v->g << 8);
-	v->color = v->color | v->b;
+	else if(v->z[v->mapX][v->mapY] == 2)
+	{
+		if(v->angle == 1)
+			v->color = 0xff99ff;
+		else if(v->angle == 2)
+			v->color = 0xff66ff;
+		else if(v->angle == 3)
+			v->color = 0xff66cc;
+		else if(v->angle == 4)
+			v->color = 0xff99cc;
+	}
+	else
+		get_color2(v);
 }
