@@ -6,11 +6,27 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 16:41:50 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 21:34:38 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 22:22:08 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
+
+/*
+** Print the ui
+*/
+
+void	ui(t_val *v)
+{
+	void	*w;
+	void	*mx;
+
+	w = v->win;
+	mx = v->mlx;
+	mlx_string_put(mx, w, 20, 10, W, "Quit  = Esc");
+	mlx_string_put(mx, w, 20, 30, W, "Move  = Arows & WASD");
+	mlx_string_put(mx, w, 20, 50, W, "Speed = Shift");
+}
 
 /*
 ** All the error messages
@@ -20,10 +36,10 @@ void	error(int e)
 {
 	if (e == 0 || e == 1)
 	{
-		ft_putendl_fd("Usage : ./wolf maps/01\n\n Map need to be a square \
-		with walls on borders. Walls are 1-2-3-4 values \
-		'9' is the start position and 0 is for floor.\n \
-		Ex :\n 1 1 1 1\n 1 0 0 1\n 1 0 9 1\n1 1 1 1", 2);
+		ft_putendl_fd("Usage : ./wolf maps/01\n\nMap need to be a square \
+with walls on borders.\nWalls are 1-2-3-4 values\
+'9' is the start position and 0 is for floor.\n\
+Ex :\n  1 1 1 1\n  1 0 0 1\n  1 0 9 1\n  1 1 1 1", 2);
 		exit(1);
 	}
 	else if (e == 2)
@@ -53,7 +69,7 @@ int		clean(t_val *v)
 {
 	mlx_destroy_window(v->mlx, v->win);
 	mlx_destroy_image(v->mlx, v->img);
-	free(v->z);
+	free_tab((void *)v->z);
 	ft_strdel(&v->av);
 	exit(0);
 	return (0);
@@ -65,7 +81,7 @@ int		clean(t_val *v)
 
 void	get_color2(t_val *v)
 {
-	if (v->z[v->mapX][v->mapY] == 3)
+	if (v->z[v->xi][v->yi] == 3)
 	{
 		if (v->angle == 1)
 			v->color = 0x33ccff;
@@ -74,7 +90,7 @@ void	get_color2(t_val *v)
 		else if (v->angle == 3)
 			v->color = 0x0066ff;
 		else if (v->angle == 4)
-			v->color = 0x0000ff;
+			v->color = 0x99e6ff;
 	}
 	else
 	{
@@ -95,7 +111,7 @@ void	get_color2(t_val *v)
 
 void	get_color(t_val *v)
 {
-	if (v->z[v->mapX][v->mapY] == 1)
+	if (v->z[v->xi][v->yi] == 1)
 	{
 		if (v->angle == 1)
 			v->color = 0xccff99;
@@ -106,7 +122,7 @@ void	get_color(t_val *v)
 		else if (v->angle == 4)
 			v->color = 0x99ff66;
 	}
-	else if (v->z[v->mapX][v->mapY] == 2)
+	else if (v->z[v->xi][v->yi] == 2)
 	{
 		if (v->angle == 1)
 			v->color = 0xff99ff;

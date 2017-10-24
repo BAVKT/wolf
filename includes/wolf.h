@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 18:41:36 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 20:51:29 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 22:26:53 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,22 @@
 
 typedef struct			s_val
 {
-	int					murVertiOuHori;
-	int					sizeline;
 	int					win_size;
+	int					sizeline;
 	int					endian;
-	int					etapeX;
-	int					etapeY;
-	int					touche;
+	int					stepx;
+	int					stepy;
 	int					sizev;
-	int					*popxy;
-	int					mapX;
-	int					mapY;
 	int					winx;
 	int					winy;
 	int					maxx;
 	int					maxy;
 	int					size;
+	int					wall;
+	int					hit;
 	int					bpp;
+	int					xi;
+	int					yi;
 	int					x;
 	int					**z;
 	int					*data;
@@ -53,46 +52,41 @@ typedef struct			s_val
 	void				*win;
 	void				*img;
 	double				rot;
-	double				posX;
-	double				posY;
-	double				dirX;
-	double				dirY;
-	double 				angle;
+	double				end;
+	double				posx;
+	double				posy;
+	double				dirx;
+	double				diry;
+	double				camx;
+	double				rayx;
+	double				rayy;
+	double				start;
+	double				angle;
 	double				speed;
-	double				planeX;
-	double				planeY;
-	double				oldDirX;
-	double				cameraX;
-	double				rayPosX;
-	double				rayPosY;
-	double				rayDirX;
-	double				rayDirY;
-	double				drawEnd;
-	double				distMurX;
-	double				distMurY;
-	double				oldPlaneX;
-	double				dist2MurX;
-	double				dist2MurY;
-	double				drawStart;
-	double				hauteurMur;
-	double				longueurMur;
+	double				odirx;
+	double				planex;
+	double				planey;
+	double				wdistx;
+	double				wdisty;
+	double				wall_h;
+	double				wall_w;
+	double				dirrayx;
+	double				dirrayy;
+	double				oplanex;
+	double				wdistxx;
+	double				wdistyy;
 	unsigned int		color;
 	unsigned char		r;
 	unsigned char		g;
 	unsigned char		b;
-}					    t_val;
+}						t_val;
 
 /*
-** Main & loop 					|	wolf.c
+** Main & loop & init			|	wolf.c
 */
 
 void					loop(t_val *v);
 void					refresh(t_val *v);
-
-/*
-** Init functions				|	init.c
-*/
-
 void					init_v(t_val *v);
 void					init_base(t_val *v);
 
@@ -110,11 +104,11 @@ void					wall(t_val *v);
 ** Parsing the map				|	parsing.c
 */
 
+int						get_z(t_val *v, char *line, int j);
 void					check_file(char *av);
 void					check_start(t_val *v);
 void					parse(t_val *v);
 void					get_xy(t_val *v, char *line);
-int						get_z(t_val *v, char *line, int j);
 
 /*
 ** All the events				|	event.c
@@ -130,9 +124,10 @@ void					rotate(int k, t_val *v);
 ** Utilitaries					|	utils.c
 */
 
-void					error(int e);
 int						clean(t_val *v);
+void					error(int e);
 void					get_color(t_val *v);
 void					get_color2(t_val *v);
+void					ui(t_val *val);
 
 #endif

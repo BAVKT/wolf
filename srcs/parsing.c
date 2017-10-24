@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 18:41:10 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 21:34:20 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 22:17:50 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,8 @@ void	check_start(t_val *v)
 			if (v->z[i][j] == 9)
 			{
 				nb++;
-				v->posX = i > 0 && i < v->maxy ? i + 0.5 : v->posX;
-				v->posY = j > 0 && j < v->maxx ? j + 0.5 : v->posY;
+				v->posx = i > 0 && i < v->maxy ? i + 0.5 : v->posx;
+				v->posy = j > 0 && j < v->maxx ? j + 0.5 : v->posy;
 			}
 			if (v->z[i][j] < 0 || v->z[i][j] > 4)
 				v->z[i][j] = 0;

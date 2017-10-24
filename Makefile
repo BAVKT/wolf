@@ -6,14 +6,13 @@
 #    By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/27 17:07:31 by vmercadi          #+#    #+#              #
-#    Updated: 2017/10/24 20:53:16 by vmercadi         ###   ########.fr        #
+#    Updated: 2017/10/24 21:53:03 by vmercadi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = wolf3d
 
-SRC = srcs/wolf.c srcs/init.c srcs/event.c srcs/raycasting.c srcs/utils.c \
-	srcs/parsing.c
+SRC = srcs/wolf.c srcs/event.c srcs/raycasting.c srcs/utils.c srcs/parsing.c
 
 VERSION_GET := $(shell sw_vers | grep "ProductVersion:" | tail -c 8 | head -c 5)
 SIERRA = 10.12

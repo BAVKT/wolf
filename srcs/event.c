@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 19:20:16 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 21:34:52 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 22:17:51 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ void	updown(int k, t_val *v)
 {
 	if (k == 126 || k == 13)
 	{
-		if (!v->z[(int)(v->posX + v->dirX * v->speed)][(int)(v->posY)])
-			v->posX += v->dirX * v->speed;
-		if (!v->z[(int)(v->posX)][(int)(v->posY + v->dirY * v->speed)])
-			v->posY += v->dirY * v->speed;
+		if (!v->z[(int)(v->posx + v->dirx * v->speed)][(int)(v->posy)])
+			v->posx += v->dirx * v->speed;
+		if (!v->z[(int)(v->posx)][(int)(v->posy + v->diry * v->speed)])
+			v->posy += v->diry * v->speed;
 	}
 	else if (k == 125 || k == 1)
 	{
-		if (!v->z[(int)(v->posX - v->dirX * v->speed)][(int)(v->posY)])
-			v->posX -= v->dirX * v->speed;
-		if (!v->z[(int)(v->posX)][(int)(v->posY - v->dirY * v->speed)])
-			v->posY -= v->dirY * v->speed;
+		if (!v->z[(int)(v->posx - v->dirx * v->speed)][(int)(v->posy)])
+			v->posx -= v->dirx * v->speed;
+		if (!v->z[(int)(v->posx)][(int)(v->posy - v->diry * v->speed)])
+			v->posy -= v->diry * v->speed;
 	}
 	refresh(v);
 }
@@ -43,17 +43,17 @@ void	leftright(int k, t_val *v)
 {
 	if (k == 2)
 	{
-		if (!v->z[(int)(v->posX + v->planeX * v->speed)][(int)(v->posY)])
-			v->posX += v->planeX * v->speed;
-		if (!v->z[(int)(v->posX)][(int)(v->posY + v->planeY * v->speed)])
-			v->posY += v->planeY * v->speed;
+		if (!v->z[(int)(v->posx + v->planex * v->speed)][(int)(v->posy)])
+			v->posx += v->planex * v->speed;
+		if (!v->z[(int)(v->posx)][(int)(v->posy + v->planey * v->speed)])
+			v->posy += v->planey * v->speed;
 	}
 	else if (k == 0)
 	{
-		if (!v->z[(int)(v->posX - v->planeX * v->speed)][(int)(v->posY)])
-			v->posX -= v->planeX * v->speed;
-		if (!v->z[(int)(v->posX)][(int)(v->posY - v->planeY * v->speed)])
-			v->posY -= v->planeY * v->speed;
+		if (!v->z[(int)(v->posx - v->planex * v->speed)][(int)(v->posy)])
+			v->posx -= v->planex * v->speed;
+		if (!v->z[(int)(v->posx)][(int)(v->posy - v->planey * v->speed)])
+			v->posy -= v->planey * v->speed;
 	}
 	refresh(v);
 }
@@ -66,21 +66,21 @@ void	rotate(int k, t_val *v)
 {
 	if (k == 124)
 	{
-		v->oldDirX = v->dirX;
-		v->dirX = v->dirX * cos(-v->rot) - v->dirY * sin(-v->rot);
-		v->dirY = v->oldDirX * sin(-v->rot) + v->dirY * cos(-v->rot);
-		v->oldPlaneX = v->planeX;
-		v->planeX = v->planeX * cos(-v->rot) - v->planeY * sin(-v->rot);
-		v->planeY = v->oldPlaneX * sin(-v->rot) + v->planeY * cos(-v->rot);
+		v->odirx = v->dirx;
+		v->dirx = v->dirx * cos(-v->rot) - v->diry * sin(-v->rot);
+		v->diry = v->odirx * sin(-v->rot) + v->diry * cos(-v->rot);
+		v->oplanex = v->planex;
+		v->planex = v->planex * cos(-v->rot) - v->planey * sin(-v->rot);
+		v->planey = v->oplanex * sin(-v->rot) + v->planey * cos(-v->rot);
 	}
 	else if (k == 123)
 	{
-		v->oldDirX = v->dirX;
-		v->dirX = v->dirX * cos(v->rot) - v->dirY * sin(v->rot);
-		v->dirY = v->oldDirX * sin(v->rot) + v->dirY * cos(v->rot);
-		v->oldPlaneX = v->planeX;
-		v->planeX = v->planeX * cos(v->rot) - v->planeY * sin(v->rot);
-		v->planeY = v->oldPlaneX * sin(v->rot) + v->planeY * cos(v->rot);
+		v->odirx = v->dirx;
+		v->dirx = v->dirx * cos(v->rot) - v->diry * sin(v->rot);
+		v->diry = v->odirx * sin(v->rot) + v->diry * cos(v->rot);
+		v->oplanex = v->planex;
+		v->planex = v->planex * cos(v->rot) - v->planey * sin(v->rot);
+		v->planey = v->oplanex * sin(v->rot) + v->planey * cos(v->rot);
 	}
 	refresh(v);
 }
