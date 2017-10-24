@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 19:20:16 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/23 15:34:09 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 20:29:51 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 void	updown(int k, t_val *v)
 {
 		ft_putendlcolor("updown()", MAGENTA);
+	ft_putnbrendl(v->posX);
+	ft_putnbrendl(v->posY);
 	if (k == 126 || k == 13)
 	{
 		if(!v->z[(int)(v->posX + v->dirX * v->speed)][(int)(v->posY)])
@@ -45,16 +47,16 @@ void	leftright(int k, t_val *v)
 		ft_putendlcolor("leftright()", MAGENTA);
 	if (k == 2)
 	{
-		if(!v->z[(int)(v->posX + v->dirX * v->speed)][(int)(v->posY)])
+		if(!v->z[(int)(v->posX + v->planeX * v->speed)][(int)(v->posY)])
 			v->posX += v->planeX * v->speed;
-		if(!v->z[(int)(v->posX)][(int)(v->posY + v->dirY * v->speed)])
+		if(!v->z[(int)(v->posX)][(int)(v->posY + v->planeY * v->speed)])
 			v->posY += v->planeY * v->speed;
 	}
 	else if (k == 0)
 	{
-		if(!v->z[(int)(v->posX - v->dirX * v->speed)][(int)(v->posY)])
+		if(!v->z[(int)(v->posX - v->planeX * v->speed)][(int)(v->posY)])
 			v->posX -= v->planeX * v->speed;
-		if(!v->z[(int)(v->posX)][(int)(v->posY - v->dirY * v->speed)])
+		if(!v->z[(int)(v->posX)][(int)(v->posY - v->planeY * v->speed)])
 			v->posY -= v->planeY * v->speed;
 	}
 	refresh(v);

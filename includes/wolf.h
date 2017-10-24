@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 18:41:36 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/23 16:21:13 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 17:28:20 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct			s_val
 	int					etapeY;
 	int					touche;
 	int					sizev;
+	int					*popxy;
 	int					mapX;
 	int					mapY;
 	int					winx;
@@ -110,6 +111,7 @@ void	wall(t_val *v);
 */
 
 void	check_file(char *av);
+void	check_start(t_val *v);
 void	parse(t_val *v);
 void	get_xy(t_val *v, char *line);
 int		get_z(t_val *v, char *line, int j);
@@ -131,5 +133,6 @@ void	rotate(int k, t_val *v);
 void	error(int e);
 int		clean(t_val *v);
 void	get_color(t_val *v);
+void	get_color2(t_val *v);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 20:31:32 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/23 18:14:57 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 18:23:36 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	init_base(t_val *v)
 	v->color = 0;
 	v->posX = 2;
 	v->posY = 2;
+	if (!(v->popxy = (int *)malloc(sizeof(int) * 2)))
+		error(8); 
 	v->dirX = -1;
 	v->dirY = 0;
 	v->planeX = 0;

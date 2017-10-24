@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 18:41:10 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/23 15:34:07 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 18:30:41 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	check_file(char *av)
 		i = 0;
 		while (s[i])
 		{
-			if ((!ft_isdigit(s[i]) && s[i] != ' ' && s[i] != 9))
+			if ((!ft_isdigit(s[i]) && s[i] != ' '))
 				error(4);
 			i++;
 		}
@@ -72,7 +72,7 @@ void	parse(t_val *v)
 		j = get_z(v, str, j);
 		free(str);
 	}
-	close(fd);
+	(j <= 0) ? error(6) : close(fd);
 }
 
 /*
@@ -81,7 +81,7 @@ void	parse(t_val *v)
 
 void	get_xy(t_val *v, char *line)
 {
-			// ft_putendlcolor("get_xy()", MAGENTA);
+			ft_putendlcolor("get_xy()", MAGENTA);
 	int i;
 	int j;
 
@@ -114,7 +114,7 @@ void	get_xy(t_val *v, char *line)
 
 int		get_z(t_val *v, char *line, int j)
 {
-			// ft_putendlcolor("get_z()", MAGENTA);
+			ft_putendlcolor("get_z()", MAGENTA);
 	int		i;
 	int		k;
 	int		l;
@@ -126,13 +126,79 @@ int		get_z(t_val *v, char *line, int j)
 	v->z[j] = (int *)malloc(sizeof(int) * v->maxx);
 	c = ft_strsplit(line, ' ');
 	while (c[i])
-	{
 		v->z[j][l++] = ft_atoi(c[i++]);
-			ft_putnbr(v->z[j][l - 1]);
-			ft_putchar(' ');
-	}
-			ft_putchar('\n');
 	j++;
 	free_tab((void **)c);
+	if (v->maxx < 2 || v->maxy < 2 || v->maxx != v->maxy)
+		error(6);
 	return (j);
 }
+
+/*
+** Check if the start position exist and is well placed
+*/
+
+void	check_start(t_val *v)
+{
+	int i;
+	int j;
+	int	nb;
+
+	nb = 0;
+	i = -1;
+	j = 0;
+	while (++i < v->maxy)
+	{
+		j = -1;
+		while (++j < v->maxx)
+		{
+			if (v->z[i][j] == 9 || v->z[i][j] == 9)
+				nb++;
+			if ((v->z[i][j] == 9 || v->z[i][j] == 9)
+				&& j > 0 && i > 0 && i < v->maxy && j < v->maxx)
+			{	
+				v->posX = i + 0.5;
+				v->posY = j + 0.5;
+			}
+			if (v->z[i][j] < 0 || v->z[i][j] > 4)
+				v->z[i][j] = 0;
+		}
+	}
+		ft_putstr("nb = ");
+		ft_putnbrendl(nb);
+	if (nb != 1)
+		error (10);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 16:17:42 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/23 18:12:27 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 19:41:09 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,6 @@ void	draw_verti(t_val *v)
 		if (666 * rand() % 9999 == 0)
 			v->data[(int)(j++ * WINX + v->x)] = 0xffffff;
 		else
-			v->data[(int)(j++ * WINX + v->x)] = 0xccffff;
+			v->data[(int)(j++ * WINX + v->x)] = 0x000CEE;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 16:41:34 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/23 15:47:45 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 18:29:00 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		main(int ac, char **av)
 	check_file(av[1]);
 	init_base(&v);
 	parse(&v);
+	check_start(&v);
 	loop(&v);
 	return (0);
 }
