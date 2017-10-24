@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 18:41:10 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 18:30:41 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 20:43:55 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 
 void	check_file(char *av)
 {
-			ft_putendlcolor("check_file()", MAGENTA);
 	int		i;
 	int		fd;
 	char	*s;
 
+			// ft_putendlcolor("check_file()", MAGENTA);
 	if ((fd = open(av, O_RDONLY)) < 0)
-	 	error(3);
+		error(3);
 	fd = open(av, O_RDONLY);
 	s = NULL;
 	while (get_next_line(fd, &s) > 0)
@@ -47,12 +47,12 @@ void	check_file(char *av)
 
 void	parse(t_val *v)
 {
-			ft_putendlcolor("parse()", MAGENTA);
 	char	*str;
 	int		fd;
 	int		j;
 	int		ok;
 
+			// ft_putendlcolor("parse()", MAGENTA);
 	str = NULL;
 	fd = open(v->av, O_RDONLY);
 	while ((ok = get_next_line(fd, &str)) > 0)
@@ -81,10 +81,10 @@ void	parse(t_val *v)
 
 void	get_xy(t_val *v, char *line)
 {
-			ft_putendlcolor("get_xy()", MAGENTA);
 	int i;
 	int j;
 
+			// ft_putendlcolor("get_xy()", MAGENTA);
 	i = 0;
 	j = 0;
 	while (line[i])
@@ -114,12 +114,12 @@ void	get_xy(t_val *v, char *line)
 
 int		get_z(t_val *v, char *line, int j)
 {
-			ft_putendlcolor("get_z()", MAGENTA);
 	int		i;
 	int		k;
 	int		l;
 	char	**c;
 
+			// ft_putendlcolor("get_z()", MAGENTA);
 	i = 0;
 	k = 0;
 	l = 0;
@@ -152,53 +152,16 @@ void	check_start(t_val *v)
 		j = -1;
 		while (++j < v->maxx)
 		{
-			if (v->z[i][j] == 9 || v->z[i][j] == 9)
+			if (v->z[i][j] == 9)
+			{
 				nb++;
-			if ((v->z[i][j] == 9 || v->z[i][j] == 9)
-				&& j > 0 && i > 0 && i < v->maxy && j < v->maxx)
-			{	
-				v->posX = i + 0.5;
-				v->posY = j + 0.5;
+				v->posX = i > 0 && i < v->maxy ? i + 0.5 : v->posX;
+				v->posY = j > 0 && j < v->maxx ? j + 0.5 : v->posY;
 			}
 			if (v->z[i][j] < 0 || v->z[i][j] > 4)
 				v->z[i][j] = 0;
 		}
 	}
-		ft_putstr("nb = ");
-		ft_putnbrendl(nb);
 	if (nb != 1)
-		error (10);
+		error(10);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

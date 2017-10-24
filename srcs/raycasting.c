@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 16:17:42 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 19:41:09 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 20:35:22 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	step(t_val *v)
 {
-    		  // ft_putendlcolor("step()", MAGENTA);
+	// ft_putendlcolor("step()", MAGENTA);
 	if (v->rayDirX < 0)
 	{
 		v->etapeX = -1;
@@ -47,7 +47,7 @@ void	step(t_val *v)
 
 void	hit(t_val *v)
 {
-      // ft_putendlcolor("hit()", MAGENTA);
+	// ft_putendlcolor("hit()", MAGENTA);
 	while (v->touche == 0)
 	{
 		if (v->distMurX < v->distMurY)
@@ -65,7 +65,7 @@ void	hit(t_val *v)
 			v->angle = (v->etapeY == 1) ? 3 : 4;
 		}
 		if (v->mapX < 0 || v->mapY < 0)
-			error(9); 
+			error(9);
 		if (v->z[v->mapX][v->mapY] > 0)
 			v->touche = 1;
 	}
@@ -77,11 +77,13 @@ void	hit(t_val *v)
 
 void	wall(t_val *v)
 {
-      	// ft_putendlcolor("wall()", MAGENTA);
+	// ft_putendlcolor("wall()", MAGENTA);
 	if (v->murVertiOuHori == 0)
-		v->longueurMur = fabs((v->mapX - v->rayPosX + (1 - v->etapeX) / 2) / v->rayDirX);
+		v->longueurMur = fabs((v->mapX - v->rayPosX +
+			(1 - v->etapeX) / 2) / v->rayDirX);
 	else
-		v->longueurMur = fabs((v->mapY - v->rayPosY + (1 - v->etapeY) / 2) / v->rayDirY);
+		v->longueurMur = fabs((v->mapY - v->rayPosY +
+			(1 - v->etapeY) / 2) / v->rayDirY);
 	v->hauteurMur = fabs(WINY / v->longueurMur);
 	v->drawStart = -v->hauteurMur / 2 + WINY / 2;
 	if (v->drawStart < 0)
@@ -97,7 +99,7 @@ void	wall(t_val *v)
 
 void	raycasting(t_val *v)
 {
-      // ft_putendlcolor("raycasting()", MAGENTA);
+	// ft_putendlcolor("raycasting()", MAGENTA);
 	v->x = -1;
 	while (++v->x < WINX)
 	{
@@ -107,7 +109,7 @@ void	raycasting(t_val *v)
 		wall(v);
 		get_color(v);
 		draw_verti(v);
-    }
+	}
 }
 
 /*

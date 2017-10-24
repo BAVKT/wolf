@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 16:41:34 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 18:29:00 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 20:33:39 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@
 ** Main loop
 */
 
-void    loop(t_val *v)
+void	loop(t_val *v)
 {
-      ft_putendlcolor("loop()", MAGENTA);
-    refresh(v);
-    mlx_hook(v->win, 2, 0, event, v);
-    mlx_hook(v->win, 17, 0, clean, v);
-    mlx_loop(v->mlx);
+	// ft_putendlcolor("loop()", MAGENTA);
+	refresh(v);
+	mlx_hook(v->win, 2, 0, event, v);
+	mlx_hook(v->win, 17, 0, clean, v);
+	mlx_loop(v->mlx);
 }
 
 /*
 ** Clear the current image, draw the new one and display it
 */
 
-void  refresh(t_val *v)
+void	refresh(t_val *v)
 {
-       ft_putendlcolor("refresh()", MAGENTA);
 	int i;
+	// ft_putendlcolor("refresh()", MAGENTA);
 
 	i = 0;
 	while (i < WINX * WINY - 1)

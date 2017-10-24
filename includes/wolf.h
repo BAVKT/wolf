@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 18:41:36 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 17:28:20 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 20:51:29 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,53 +86,53 @@ typedef struct			s_val
 ** Main & loop 					|	wolf.c
 */
 
-void	loop(t_val *v);
-void	refresh(t_val *v);
+void					loop(t_val *v);
+void					refresh(t_val *v);
 
 /*
 ** Init functions				|	init.c
 */
 
-void	init_v(t_val *v);
-void	init_base(t_val *v);
+void					init_v(t_val *v);
+void					init_base(t_val *v);
 
 /*
 ** Raycasting functions			|	raycasting.c
 */
 
-void	raycasting(t_val *v);
-void	draw_verti(t_val *v);
-void	step(t_val *v);
-void	hit(t_val *v);
-void	wall(t_val *v);
+void					raycasting(t_val *v);
+void					draw_verti(t_val *v);
+void					step(t_val *v);
+void					hit(t_val *v);
+void					wall(t_val *v);
 
 /*
 ** Parsing the map				|	parsing.c
 */
 
-void	check_file(char *av);
-void	check_start(t_val *v);
-void	parse(t_val *v);
-void	get_xy(t_val *v, char *line);
-int		get_z(t_val *v, char *line, int j);
+void					check_file(char *av);
+void					check_start(t_val *v);
+void					parse(t_val *v);
+void					get_xy(t_val *v, char *line);
+int						get_z(t_val *v, char *line, int j);
 
 /*
 ** All the events				|	event.c
 */
 
-int		event(int k, void *param);
-void	updown(int k, t_val *v);
-void	leftright(int k, t_val *v);
-void	ev_else(int k, t_val *v);
-void	rotate(int k, t_val *v);
+int						event(int k, void *param);
+void					updown(int k, t_val *v);
+void					leftright(int k, t_val *v);
+void					ev_else(int k, t_val *v);
+void					rotate(int k, t_val *v);
 
 /*
 ** Utilitaries					|	utils.c
 */
 
-void	error(int e);
-int		clean(t_val *v);
-void	get_color(t_val *v);
-void	get_color2(t_val *v);
+void					error(int e);
+int						clean(t_val *v);
+void					get_color(t_val *v);
+void					get_color2(t_val *v);
 
 #endif
