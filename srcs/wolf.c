@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 16:41:34 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 20:33:39 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 21:34:08 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 void	loop(t_val *v)
 {
-	// ft_putendlcolor("loop()", MAGENTA);
 	refresh(v);
 	mlx_hook(v->win, 2, 0, event, v);
 	mlx_hook(v->win, 17, 0, clean, v);
@@ -32,7 +31,6 @@ void	loop(t_val *v)
 void	refresh(t_val *v)
 {
 	int i;
-	// ft_putendlcolor("refresh()", MAGENTA);
 
 	i = 0;
 	while (i < WINX * WINY - 1)

@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 20:31:32 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 20:47:27 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 21:34:32 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 void	init_base(t_val *v)
 {
-	// ft_putendlcolor("init_base()", MAGENTA);
 	v->color = 0;
 	v->posX = 2;
 	v->posY = 2;
@@ -52,7 +51,6 @@ void	init_base(t_val *v)
 
 void	init_v(t_val *v)
 {
-	// ft_putendlcolor("init_v()", MAGENTA);
 	v->cameraX = 2 * v->x / (double)WINX - 1;
 	v->rayPosX = v->posX;
 	v->rayPosY = v->posY;

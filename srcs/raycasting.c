@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 16:17:42 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 20:35:22 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 21:34:14 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 void	step(t_val *v)
 {
-	// ft_putendlcolor("step()", MAGENTA);
 	if (v->rayDirX < 0)
 	{
 		v->etapeX = -1;
@@ -47,7 +46,6 @@ void	step(t_val *v)
 
 void	hit(t_val *v)
 {
-	// ft_putendlcolor("hit()", MAGENTA);
 	while (v->touche == 0)
 	{
 		if (v->distMurX < v->distMurY)
@@ -77,7 +75,6 @@ void	hit(t_val *v)
 
 void	wall(t_val *v)
 {
-	// ft_putendlcolor("wall()", MAGENTA);
 	if (v->murVertiOuHori == 0)
 		v->longueurMur = fabs((v->mapX - v->rayPosX +
 			(1 - v->etapeX) / 2) / v->rayDirX);
@@ -99,7 +96,6 @@ void	wall(t_val *v)
 
 void	raycasting(t_val *v)
 {
-	// ft_putendlcolor("raycasting()", MAGENTA);
 	v->x = -1;
 	while (++v->x < WINX)
 	{

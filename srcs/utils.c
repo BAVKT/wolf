@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 16:41:50 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 20:50:16 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 21:34:38 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@
 
 void	error(int e)
 {
-			ft_putendlcolor("error()", MAGENTA);
 	if (e == 0 || e == 1)
 	{
-		ft_putendl_fd("Usage : ./wolf maps/map1\n\n Map need to be a square \
+		ft_putendl_fd("Usage : ./wolf maps/01\n\n Map need to be a square \
 		with walls on borders. Walls are 1-2-3-4 values \
 		'9' is the start position and 0 is for floor.\n \
-		Ex :\n 1 1 1 1\n 1 0 0 1\n 1 0 9 1\n1 1 1 1\n", 2);
+		Ex :\n 1 1 1 1\n 1 0 0 1\n 1 0 9 1\n1 1 1 1", 2);
 		exit(1);
 	}
 	else if (e == 2)
@@ -52,7 +51,6 @@ void	error(int e)
 
 int		clean(t_val *v)
 {
-	// ft_putendlcolor("clean()", MAGENTA);
 	mlx_destroy_window(v->mlx, v->win);
 	mlx_destroy_image(v->mlx, v->img);
 	free(v->z);
@@ -67,7 +65,6 @@ int		clean(t_val *v)
 
 void	get_color2(t_val *v)
 {
-			//ft_putendlcolor("get_color()", MAGENTA);
 	if (v->z[v->mapX][v->mapY] == 3)
 	{
 		if (v->angle == 1)
@@ -98,7 +95,6 @@ void	get_color2(t_val *v)
 
 void	get_color(t_val *v)
 {
-			//ft_putendlcolor("get_color()", MAGENTA);
 	if (v->z[v->mapX][v->mapY] == 1)
 	{
 		if (v->angle == 1)

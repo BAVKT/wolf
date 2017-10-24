@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 19:20:16 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 20:45:34 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 21:34:52 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 void	updown(int k, t_val *v)
 {
-// ft_putendlcolor("updown()", MAGENTA);
 	if (k == 126 || k == 13)
 	{
 		if (!v->z[(int)(v->posX + v->dirX * v->speed)][(int)(v->posY)])
@@ -42,7 +41,6 @@ void	updown(int k, t_val *v)
 
 void	leftright(int k, t_val *v)
 {
-// ft_putendlcolor("leftright()", MAGENTA);
 	if (k == 2)
 	{
 		if (!v->z[(int)(v->posX + v->planeX * v->speed)][(int)(v->posY)])
@@ -66,7 +64,6 @@ void	leftright(int k, t_val *v)
 
 void	rotate(int k, t_val *v)
 {
-// ft_putendlcolor("rotate()", MAGENTA);
 	if (k == 124)
 	{
 		v->oldDirX = v->dirX;
@@ -94,7 +91,6 @@ void	rotate(int k, t_val *v)
 
 void	ev_else(int k, t_val *v)
 {
-	// ft_putendlcolor("ev_else()", MAGENTA);
 	if (k == 53)
 		clean(v);
 	else if (k == 257)
@@ -108,7 +104,7 @@ void	ev_else(int k, t_val *v)
 int		event(int k, void *param)
 {
 	t_val *v;
-// ft_putendlcolor("event()", MAGENTA);
+
 	v = (t_val *)param;
 	if (k == 126 || k == 125 || k == 13 || k == 1)
 		updown(k, v);

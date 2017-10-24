@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 18:41:10 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 20:43:55 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/24 21:34:20 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	check_file(char *av)
 	int		fd;
 	char	*s;
 
-			// ft_putendlcolor("check_file()", MAGENTA);
 	if ((fd = open(av, O_RDONLY)) < 0)
 		error(3);
 	fd = open(av, O_RDONLY);
@@ -52,7 +51,6 @@ void	parse(t_val *v)
 	int		j;
 	int		ok;
 
-			// ft_putendlcolor("parse()", MAGENTA);
 	str = NULL;
 	fd = open(v->av, O_RDONLY);
 	while ((ok = get_next_line(fd, &str)) > 0)
@@ -84,7 +82,6 @@ void	get_xy(t_val *v, char *line)
 	int i;
 	int j;
 
-			// ft_putendlcolor("get_xy()", MAGENTA);
 	i = 0;
 	j = 0;
 	while (line[i])
@@ -119,7 +116,6 @@ int		get_z(t_val *v, char *line, int j)
 	int		l;
 	char	**c;
 
-			// ft_putendlcolor("get_z()", MAGENTA);
 	i = 0;
 	k = 0;
 	l = 0;
