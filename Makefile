@@ -6,7 +6,7 @@
 #    By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/27 17:07:31 by vmercadi          #+#    #+#              #
-#    Updated: 2017/10/24 21:53:03 by vmercadi         ###   ########.fr        #
+#    Updated: 2017/10/25 16:00:06 by vmercadi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ $(NAME):$(SRCO)
 	@echo "-----------------------------------\x1b[0m"
 
 it: all
-	@./wolf3d pam/01
+	@./wolf3d maps/01
 clean:
 	@rm -rf $(SRCO)
 	@make clean -s -C libft/
@@ -64,4 +64,4 @@ re: fclean all
 ultra: all clean
 
 reit: re clean
-	@./wolf3d pam/01
+	@./wolf3d maps/01

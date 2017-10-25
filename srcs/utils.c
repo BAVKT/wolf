@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 16:41:50 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 22:22:08 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/25 16:19:38 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ with walls on borders.\nWalls are 1-2-3-4 values\
 Ex :\n  1 1 1 1\n  1 0 0 1\n  1 0 9 1\n  1 1 1 1", 2);
 		exit(1);
 	}
-	else if (e == 2)
-		ft_putendl_fd("Multithreading failed.", 2);
 	else if (e == 3)
 		ft_putendl_fd("File is empty or doesn't exist.", 2);
 	else if (e == 4)
@@ -67,10 +65,13 @@ Ex :\n  1 1 1 1\n  1 0 0 1\n  1 0 9 1\n  1 1 1 1", 2);
 
 int		clean(t_val *v)
 {
+			ft_putendl("NIKTAMERELAPUTE");
 	mlx_destroy_window(v->mlx, v->win);
 	mlx_destroy_image(v->mlx, v->img);
-	free_tab((void *)v->z);
+	// free_tab((void **)v->z);
 	ft_strdel(&v->av);
+		while (1)
+			;
 	exit(0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 20:31:32 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 21:51:29 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/25 16:15:41 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	init_base(t_val *v)
 	v->sizeline = 0;
 	v->rot = 0.12;
 	v->speed = 0.1;
-	v->Wall_w = 0;
+	v->wall_w = 0;
 	v->wall = 0;
-	v->etapeX = 0;
-	v->etapeY = 0;
+	v->stepx = 0;
+	v->stepy = 0;
 	v->wdistx = 0;
 	v->wdisty = 0;
 	v->mlx = mlx_init();
@@ -52,13 +52,13 @@ void	init_v(t_val *v)
 	v->camx = 2 * v->x / (double)WINX - 1;
 	v->rayx = v->posx;
 	v->rayy = v->posy;
-	v->dirRayx = v->dirx + v->planex * v->camx;
-	v->dirRayy = v->diry + v->planey * v->camx;
+	v->dirrayx = v->dirx + v->planex * v->camx;
+	v->dirrayy = v->diry + v->planey * v->camx;
 	v->xi = (int)v->rayx;
 	v->yi = (int)v->rayy;
-	v->wdistxx = sqrt(1 + (v->dirRayy * v->dirRayy) /
-		(v->dirRayx * v->dirRayx));
-	v->wdistyy = sqrt(1 + (v->dirRayx * v->dirRayx) /
-		(v->dirRayy * v->dirRayy));
+	v->wdistxx = sqrt(1 + (v->dirrayy * v->dirrayy) /
+		(v->dirrayx * v->dirrayx));
+	v->wdistyy = sqrt(1 + (v->dirrayx * v->dirrayx) /
+		(v->dirrayy * v->dirrayy));
 	v->hit = 0;
 }

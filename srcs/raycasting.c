@@ -6,7 +6,7 @@
 /*   By: vmercadi <vmercadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 16:17:42 by vmercadi          #+#    #+#             */
-/*   Updated: 2017/10/24 22:19:38 by vmercadi         ###   ########.fr       */
+/*   Updated: 2017/10/25 15:51:55 by vmercadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,24 @@
 
 void	step(t_val *v)
 {
-	if (v->dirRayx < 0)
+	if (v->dirrayx < 0)
 	{
-		v->etapeX = -1;
+		v->stepx = -1;
 		v->wdistx = (v->rayx - v->xi) * v->wdistxx;
 	}
 	else
 	{
-		v->etapeX = 1;
+		v->stepx = 1;
 		v->wdistx = (v->xi + 1.0 - v->rayx) * v->wdistxx;
 	}
-	if (v->dirRayy < 0)
+	if (v->dirrayy < 0)
 	{
-		v->etapeY = -1;
+		v->stepy = -1;
 		v->wdisty = (v->rayy - v->yi) * v->wdistyy;
 	}
 	else
 	{
-		v->etapeY = 1;
+		v->stepy = 1;
 		v->wdisty = (v->yi + 1.0 - v->rayy) * v->wdistyy;
 	}
 }
@@ -51,16 +51,16 @@ void	hit(t_val *v)
 		if (v->wdistx < v->wdisty)
 		{
 			v->wdistx += v->wdistxx;
-			v->xi += v->etapeX;
+			v->xi += v->stepx;
 			v->wall = 0;
-			v->angle = (v->etapeX == 1) ? 1 : 2;
+			v->angle = (v->stepx == 1) ? 1 : 2;
 		}
 		else
 		{
 			v->wdisty += v->wdistyy;
-			v->yi += v->etapeY;
+			v->yi += v->stepy;
 			v->wall = 1;
-			v->angle = (v->etapeY == 1) ? 3 : 4;
+			v->angle = (v->stepy == 1) ? 3 : 4;
 		}
 		if (v->xi < 0 || v->yi < 0)
 			error(9);
@@ -76,16 +76,16 @@ void	hit(t_val *v)
 void	wall(t_val *v)
 {
 	if (v->wall == 0)
-		v->Wall_w = fabs((v->xi - v->rayx +
-			(1 - v->etapeX) / 2) / v->dirRayx);
+		v->wall_w = fabs((v->xi - v->rayx +
+			(1 - v->stepx) / 2) / v->dirrayx);
 	else
-		v->Wall_w = fabs((v->yi - v->rayy +
-			(1 - v->etapeY) / 2) / v->dirRayy);
-	v->Wall_h = fabs(WINY / v->Wall_w);
-	v->start = -v->Wall_h / 2 + WINY / 2;
+		v->wall_w = fabs((v->yi - v->rayy +
+			(1 - v->stepy) / 2) / v->dirrayy);
+	v->wall_h = fabs(WINY / v->wall_w);
+	v->start = -v->wall_h / 2 + WINY / 2;
 	if (v->start < 0)
 		v->start = 0;
-	v->end = v->Wall_h / 2 + WINY / 2;
+	v->end = v->wall_h / 2 + WINY / 2;
 	if (v->end >= WINY)
 		v->end = WINY - 1;
 }
